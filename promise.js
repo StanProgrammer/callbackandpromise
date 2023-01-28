@@ -3,6 +3,10 @@ const posts=[
     {title:'Post Two',body:'This is post two',createdAt:new Date().getTime()},
 ];
 
+const user={
+    name:'Atib',
+    lastActivityTime:new Date().getTime()
+}
 let intervalId=0
 function getPosts(){
     return new Promise((resolve,reject)=>{
@@ -34,6 +38,7 @@ function createPosts(post){
 }
 
 function create4thPosts(post){
+    
     return new Promise((resolve,reject)=>{
         setTimeout(()=>{
             posts.push({...post,createdAt:new Date().getTime()})
@@ -43,6 +48,7 @@ function create4thPosts(post){
     
 }
 function deletePosts(){
+    
     return new Promise((resolve,reject)=>{
         setTimeout(()=>{
             let len=posts.length
@@ -58,24 +64,59 @@ function deletePosts(){
         },1000)
     })
 }
-function myFunc1(){
 
-}
+
+
 createPosts({title:'Post Three', body:'This is post three'})
-.then(getPosts)
-.then(deletePosts)
-.then(getPosts)
-.then(deletePosts)
-.then(getPosts)
+
+// 1st Section 
+// createPosts({title:'Post Three', body:'This is post three'})
+// .then(getPosts)
+// .then(deletePosts)
+// .then(getPosts)
+// .then(deletePosts)
+// .then(getPosts)
+// .then(deletePosts)
+// .then(getPosts)
+// .then(()=>{
+//     create4thPosts({title:'Post Four', body:'This is post three'})
+//     .then(getPosts).then(deletePosts)
+// })
+// .catch((err)=>{
+//     console.log(err)
+// })
+
+
+
+const promise1= Promise.resolve('Hello World')
+const promise2=10;
+const promise3=new Promise((resolve,reject)=>{
+    setTimeout(resolve,2000,'GoodBye')
+})
+
+// Promise.all([promise1,promise2,promise3]).then((values)=>{
+//     console.log(values)
+// })
+let t = new Date(1970, 0, 1); // Epoch
+t.setSeconds(user.lastActivityTime);
+console.log(t)
+const updateLastUserActivityTime=new Promise((resolve,reject)=>{
+    user.lastActivityTime=new Date().getTime()
+    resolve(user.lastActivityTime)
+})
+
+//2nd section
+Promise.all([create4thPosts({title:'Post Four',body:'This is post four'}),updateLastUserActivityTime]).then((a)=>{
+    console.log(posts)
+    var t = new Date(1970, 0, 1); // Epoch
+    t.setSeconds(a[1]);
+    console.log(t)   
+
+}).then(getPosts)
 .then(deletePosts)
 .then(getPosts)
 .then(()=>{
-    create4thPosts({title:'Post Four', body:'This is post three'})
-    .then(getPosts).then(deletePosts)
+    Promise.all([create4thPosts({title:'Post Five', body:'This is post five'}),updateLastUserActivityTime])
+        
+
 })
-.catch((err)=>{
-    console.log(err)
-})
-
-
-

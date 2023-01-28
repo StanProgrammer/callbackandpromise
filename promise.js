@@ -15,14 +15,19 @@ function getPosts(){
         document.body.innerHTML=output;
         resolve()
     },1000)
-    })
-    
+})
 }
 function createPosts(post){
     return new Promise((resolve,reject)=>{
         setTimeout(()=>{
             posts.push({...post,createdAt:new Date().getTime()})
-            resolve()
+            const error=false;
+            if(!error){
+                resolve()
+            }
+            else{
+                reject('Something went wrong')
+            }
         },2000)
     })
     
@@ -42,15 +47,21 @@ function deletePosts(){
         setTimeout(()=>{
             let len=posts.length
             posts.pop()
+           
             if(len==0){
-                return reject('Error Stack is Empty')
+                reject('Error Stack is Empty')
             }
-            resolve()
+            else{
+                resolve()  
+            }
+            
         },1000)
     })
 }
+function myFunc1(){
+
+}
 createPosts({title:'Post Three', body:'This is post three'})
-.then(create4thPosts({title:'Post four', body:'This is post four'}))
 .then(getPosts)
 .then(deletePosts)
 .then(getPosts)
@@ -58,29 +69,13 @@ createPosts({title:'Post Three', body:'This is post three'})
 .then(getPosts)
 .then(deletePosts)
 .then(getPosts)
-.then(deletePosts)
-.then(getPosts)
-.then(deletePosts)
+.then(()=>{
+    create4thPosts({title:'Post Four', body:'This is post three'})
+    .then(getPosts).then(deletePosts)
+})
 .catch((err)=>{
     console.log(err)
 })
 
 
 
-// deletePosts()
-// .then(getPosts)
-// .catch((err)=>{
-//     console.log(err)
-// })
-
-// deletePosts()
-// .then(getPosts)
-// .catch((err)=>{
-//     console.log(err)
-// })
-
-// deletePosts()
-// .then(getPosts)
-// .catch((err)=>{
-//     console.log(err)
-// })

@@ -106,14 +106,27 @@ const updateLastUserActivityTime=new Promise((resolve,reject)=>{
 })
 
 //2nd section
-Promise.all([create4thPosts({title:'Post Four',body:'This is post four'}),updateLastUserActivityTime]).then((a)=>{
+// Promise.all([create4thPosts({title:'Post Four',body:'This is post four'}),updateLastUserActivityTime]).then((a)=>{
+//     console.log(posts)
+//     var t = new Date(1970, 0, 1); // Epoch
+//     t.setSeconds(a[1]);
+//     console.log(t)   
+// }).then(getPosts)
+// .then(deletePosts)
+// .then(getPosts)
+// .then(()=>{
+//     Promise.all([create4thPosts({title:'Post Five', body:'This is post five'}),updateLastUserActivityTime])
+// })
+
+async function myFunc1(){
+    
+    await Promise.all([create4thPosts({title:'Post Four',body:'This is post four'}),updateLastUserActivityTime])
     console.log(posts)
-    var t = new Date(1970, 0, 1); // Epoch
-    t.setSeconds(a[1]);
-    console.log(t)   
-}).then(getPosts)
-.then(deletePosts)
-.then(getPosts)
-.then(()=>{
-    Promise.all([create4thPosts({title:'Post Five', body:'This is post five'}),updateLastUserActivityTime])
-})
+    await getPosts()
+    await deletePosts()
+    await getPosts()
+    await  Promise.all([create4thPosts({title:'Post Five', body:'This is post five'}),updateLastUserActivityTime])
+    await getPosts
+    console.log(user.lastActivityTime)
+}
+myFunc1()

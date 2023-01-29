@@ -111,12 +111,9 @@ Promise.all([create4thPosts({title:'Post Four',body:'This is post four'}),update
     var t = new Date(1970, 0, 1); // Epoch
     t.setSeconds(a[1]);
     console.log(t)   
-
 }).then(getPosts)
 .then(deletePosts)
 .then(getPosts)
 .then(()=>{
     Promise.all([create4thPosts({title:'Post Five', body:'This is post five'}),updateLastUserActivityTime])
-        
-
 })
